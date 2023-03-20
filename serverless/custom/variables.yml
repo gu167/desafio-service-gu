@@ -1,0 +1,10 @@
+NODE_ENV: ${self:provider.stage}
+
+branch:
+  dev: dev
+  stg: stg
+  prd: main
+
+serviceNamePrefix: ${self:service}
+serviceIdentifier: ${self:custom.serviceNamePrefix}-${self:provider.stage}
+ssmInfraPrefix: desafio-infra-gu

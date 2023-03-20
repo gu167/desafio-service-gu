@@ -1,0 +1,4 @@
+NODE_ENV: ${self:custom.NODE_ENV}
+AWS_ACCOUNT_REGION: ${aws:region} 
+SERVICE_IDENTIFIER: ${self:custom.serviceIdentifier}
+SSM_PREFIX: ${self:custom.ssmInfraPrefix}

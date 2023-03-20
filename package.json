@@ -1,13 +1,13 @@
 {
-  "name": "bt-auth-service",
+  "name": "gu-auth-service",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "start": "npx tsc && sls offline --stage sbx --aws-profile bt-sandbox",
+    "start": "npx tsc && sls offline --stage sbx --aws-profile mendgusta",
     "test": "jest --watchAll --no-cache --detectOpenHandles --runInBand --config ./jest.config.js",
     "test:cov": "jest --no-cache --detectOpenHandles --runInBand --config ./jest.config.js --coverage",
-    "deploy:sbx": "npm i && npx tsc && sls deploy --stage sbx --aws-profile bt-sandbox"
+    "deploy:sbx": "npm i && npx tsc && sls deploy --stage sbx --aws-profile mendgusta"
   },
   "license": "ISC",
   "devDependencies": {

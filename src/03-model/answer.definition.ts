@@ -3,6 +3,8 @@ import {
   IsNotEmpty,
   IsObject,
   IsUUID,
+  Max,
+  Min,
   validateSync,
 } from 'class-validator';
 
@@ -12,12 +14,14 @@ export class AnswerDefinition {
 
   @IsNotEmpty()
   @IsObject()
-  answerContent: object;
+  answerContent: any;
 
   @IsInt()
+  @Min(1)
+  @Max(3)
   typeAnswer: number;
 
-  constructor(id: string, answerContent: object, typeAnswer: number) {
+  constructor(id: string, answerContent: any, typeAnswer: number) {
     this.id = id;
     this.answerContent = answerContent;
     this.typeAnswer = typeAnswer;
@@ -35,7 +39,7 @@ export class AnswerDefinition {
           .map(({ constraints }) => Object.values(constraints).join('; '))
           .join('; ') + ';';
 
-      throw new Error(`Task Errors:${errors}`);
+      throw new Error(`AnswerErrors: ${errors}`);
     }
   }
 }

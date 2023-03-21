@@ -19,16 +19,16 @@ export class AnswerDefinition {
   @IsInt()
   @Min(1)
   @Max(3)
-  typeAnswer: number;
+  taskId: number;
 
   constructor(id: string, answerContent: any, typeAnswer: number) {
     this.id = id;
     this.answerContent = answerContent;
-    this.typeAnswer = typeAnswer;
+    this.taskId = typeAnswer;
     this.validator();
   }
   public clone() {
-    return new AnswerDefinition(this.id, this.answerContent, this.typeAnswer);
+    return new AnswerDefinition(this.id, this.answerContent, this.taskId);
   }
   private validator() {
     const validation = validateSync(this);

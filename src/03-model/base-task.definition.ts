@@ -6,6 +6,7 @@ import {
   validateSync,
   IsInt,
   IsObject,
+  IsEnum,
 } from 'class-validator';
 
 export enum TaskTypesEnum {
@@ -14,17 +15,18 @@ export enum TaskTypesEnum {
   MULTIPLE_CHOICE = 3,
 }
 
-export class TaskDefinition {
+export class BaseTaskDefinition<T> {
   @IsUUID()
   id: string;
 
   @IsNotEmpty()
   @IsObject()
-  question: any;
+  question: T;
 
   @IsInt()
   @Min(1, { message: 'Value under type range' })
   @Max(3, { message: 'Value over type range' })
+  @IsEnum(TaskTypesEnum)
   typeId: number;
 
   constructor(id: string, question: any, typeId: number) {
@@ -33,9 +35,11 @@ export class TaskDefinition {
     this.typeId = typeId;
     this.validator();
   }
+
   public clone() {
-    return new TaskDefinition(this.id, this.question, this.typeId);
+    return new BaseTaskDefinition(this.id, this.question, this.typeId);
   }
+
   private validator() {
     const validation = validateSync(this);
 

@@ -1,17 +1,21 @@
-import { AnswerDefinition } from 'src/03-model/answer.definition';
+import { BaseAnswerDefinition } from 'src/03-model/answers-definition/base-answer.definition';
+import { TaskTypesEnum } from 'src/03-model/tasks-definition/base-task.definition';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('#AnswerDefinition - Unit Test', () => {
   test('Should create a valid instance of AnswerDefinition when valid params are given', () => {
-    const answer = new AnswerDefinition(uuidv4(), { answerContent: 'Oi' }, 1);
+    const answer = new BaseAnswerDefinition(uuidv4(), '1', TaskTypesEnum.TEXT, {
+      answerContent: 'Oi',
+    });
 
     expect(answer).toEqual(answer.clone());
+    console.log(answer); // Visualization
   });
 
   test('should throw an error when given invalid params', () => {
     const error = new Error(
-      'AnswerErrors: id must be a UUID; answerContent must be an object; answerContent should not be empty; typeAnswer must not be greater than 3;',
+      'AnswerErrors: id must be a UUID; taskId must not be greater than 3; answerContent must be an object; answerContent should not be empty;',
     );
-    expect(() => new AnswerDefinition('', '', 5)).toThrow(error);
+    expect(() => new BaseAnswerDefinition('', '', 5, '')).toThrow(error);
   });
 });

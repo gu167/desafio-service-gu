@@ -1,7 +1,7 @@
 import {
   SingleChoiceTaskDefinition,
   SingleChoiceQuestion,
-} from 'src/03-model/single-choice-task.definition';
+} from 'src/03-model/tasks-definition/single-choice-task.definition';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('#TaskDefinition - Unit Test', () => {
@@ -19,8 +19,8 @@ describe('#TaskDefinition - Unit Test', () => {
       uuidv4(),
       singleChoiceQuestionDefinition,
     );
-    console.log(task);
     expect(task).toEqual(task.clone());
+    console.log(task); //Visuazlization
   });
 
   test('should throw an error when params are invalid', () => {

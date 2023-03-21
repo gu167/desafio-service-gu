@@ -1,8 +1,6 @@
 import {
-  IsEnum,
   IsNotEmpty,
   IsString,
-  Max,
   MaxLength,
   MinLength,
   validateSync,
@@ -14,7 +12,7 @@ export type OptionType = {
   checked: boolean;
 };
 
-export class SingleChoiceQuestion {
+export class MultipleChoiceQuestion {
   @IsString()
   @MinLength(1)
   @MaxLength(255)
@@ -31,7 +29,7 @@ export class SingleChoiceQuestion {
   }
 
   public clone() {
-    return new SingleChoiceQuestion(this.statement, this.options);
+    return new MultipleChoiceQuestion(this.statement, this.options);
   }
 
   private validator() {
@@ -42,15 +40,15 @@ export class SingleChoiceQuestion {
           .map(({ constraints }) => Object.values(constraints).join('; '))
           .join('; ') + ';';
 
-      throw new Error(`User Errors: ${errors}`);
+      throw new Error(`TaskQuestion Errors: ${errors}`);
     }
 
     return;
   }
 }
 
-export class SingleChoiceTaskDefinition extends BaseTaskDefinition<SingleChoiceQuestion> {
+export class MultipleChoiceTaskDefinition extends BaseTaskDefinition<MultipleChoiceQuestion> {
   constructor(id: string, question: any) {
-    super(id, question, TaskTypesEnum.SINGLE_CHOICE);
+    super(id, question, TaskTypesEnum.MULTIPLE_CHOICE);
   }
 }

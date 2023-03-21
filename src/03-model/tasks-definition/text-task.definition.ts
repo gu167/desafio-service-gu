@@ -11,10 +11,6 @@ export class TextQuestion {
     this.validator();
   }
 
-  public clone() {
-    return new TextQuestion(this.statement);
-  }
-
   private validator() {
     const validation = validateSync(this);
 
@@ -24,10 +20,14 @@ export class TextQuestion {
           .map(({ constraints }) => Object.values(constraints).join('; '))
           .join('; ') + ';';
 
-      throw new Error(`User Errors: ${errors}`);
+      throw new Error(`TaskQuestion Errors: ${errors}`);
     }
 
     return;
+  }
+
+  public clone() {
+    return new TextQuestion(this.statement);
   }
 }
 

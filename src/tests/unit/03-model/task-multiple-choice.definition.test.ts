@@ -1,7 +1,7 @@
 import {
   MultipleChoiceTaskDefinition,
   MultipleChoiceQuestion,
-} from 'src/03-model/multiple-choice-task.definition';
+} from 'src/03-model/tasks-definition/multiple-choice-task.definition';
 import { v4 as uuidv4 } from 'uuid';
 
 describe('#TaskDefinition - Unit Test', () => {
@@ -31,8 +31,8 @@ describe('#TaskDefinition - Unit Test', () => {
       uuidv4(),
       multipleChoiceQuestionDefinition,
     );
-    console.log(task);
     expect(task).toEqual(task.clone());
+    console.log(task); //Visualization
   });
 
   test('should throw an error when params are invalid', () => {

@@ -13,5 +13,6 @@ describe('#UserDefinition - Unit Tests', () => {
     );
 
     expect(() => new UserDefinition('', '', 17)).toThrow(error);
+    console.log(error); //Visuazlization
   });
 });

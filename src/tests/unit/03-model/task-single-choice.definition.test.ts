@@ -28,5 +28,6 @@ describe('#TaskDefinition - Unit Test', () => {
       'Task Errors:id must be a UUID; question must be an object; question should not be empty;',
     );
     expect(() => new SingleChoiceTaskDefinition('', '')).toThrow(error);
+    console.log(error); //Visuazlization
   });
 });

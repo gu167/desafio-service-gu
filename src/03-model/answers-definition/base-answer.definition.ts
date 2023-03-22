@@ -1,11 +1,8 @@
 import {
   IsEnum,
-  IsInt,
   IsNotEmpty,
   IsObject,
   IsUUID,
-  Max,
-  Min,
   validateSync,
 } from 'class-validator';
 import { TaskTypesEnum } from '../tasks-definition/base-task.definition';
@@ -14,8 +11,7 @@ export class BaseAnswerDefinition<T> {
   @IsUUID()
   @IsNotEmpty()
   id: string;
-  @Min(1, { message: 'Value under answer range, must match TaskType' })
-  @Max(3, { message: 'Value over answer range, must match TaskType' })
+  //TODO add when service is ready @IsUUID()
   @IsNotEmpty()
   taskId: string;
   @IsEnum(TaskTypesEnum)

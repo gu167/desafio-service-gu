@@ -14,8 +14,9 @@ describe('#AnswerDefinition - Unit Test', () => {
 
   test('should throw an error when given invalid params', () => {
     const error = new Error(
-      'AnswerErrors: id must be a UUID; taskId must not be greater than 3; answerContent must be an object; answerContent should not be empty;',
+      'AnswerErrors: id should not be empty; id must be a UUID; taskId should not be empty; answerType must be one of the following values: 1, 2, 3; answerContent must be an object; answerContent should not be empty;',
     );
     expect(() => new BaseAnswerDefinition('', '', 5, '')).toThrow(error);
+    console.log(error); //Visuazlization
   });
 });

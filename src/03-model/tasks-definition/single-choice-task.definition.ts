@@ -1,8 +1,6 @@
 import {
-  IsEnum,
   IsNotEmpty,
   IsString,
-  Max,
   MaxLength,
   MinLength,
   validateSync,

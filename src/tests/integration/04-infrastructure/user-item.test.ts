@@ -6,7 +6,7 @@ import { SsmProvider } from 'src/_shared/ssm';
 describe('#UserItem - Integration Tests ', () => {
   test('#putItem - should put item', async () => {
     const { TABLE_NAME } = await SsmProvider.getParametersByPrefix(
-      'desafion-infra-gu',
+      'desafio-infra-gu',
     );
     const userDefiniton = new UserDefinition(uuidv4(), 'name', 18);
     const userItem = UserItem.From(userDefiniton);

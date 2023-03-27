@@ -5,6 +5,7 @@ const ssmClient = new SSMClient({
 });
 
 export class SsmProvider {
+  // retorna objeto com os parametros como chave e valor ex: { TABLE_NAME: 'table' }
   public static async getParametersByPrefix(prefix: string) {
     const prefixWithSlashes = `/${prefix}/`;
     const response = await ssmClient.send(

@@ -1,11 +1,35 @@
-import { IsInt, Length, IsUUID, Min, Max, validateSync } from 'class-validator';
-
+import {
+  IsInt,
+  Length,
+  IsUUID,
+  Min,
+  Max,
+  validateSync,
+  IsNotEmpty,
+  IsString,
+  IsEnum,
+} from 'class-validator';
+export enum Roles {
+  ADMIN = 1,
+  STANDARD = 2,
+  STUDENT = 3,
+  TEACHER = 4,
+}
 export class UserDefinition {
   @IsUUID()
   id: string;
 
+  @IsEnum(Roles, {
+    message: 'Must be a Role number between 1 and 4',
+  })
+  userRole: number;
+
   @Length(1, 50)
   name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  nacionalidade: string;
 
   @IsInt()
   @Min(18, {
@@ -16,15 +40,29 @@ export class UserDefinition {
   })
   age: number;
 
-  constructor(id: string, name: string, age: number) {
+  constructor(
+    id: string,
+    userRole: number,
+    name: string,
+    nacionalidade: string,
+    age: number,
+  ) {
     this.id = id;
+    this.userRole = userRole;
     this.name = name;
+    this.nacionalidade = nacionalidade;
     this.age = age;
     this.validator();
   }
 
   public clone() {
-    return new UserDefinition(this.id, this.name, this.age);
+    return new UserDefinition(
+      this.id,
+      this.userRole,
+      this.name,
+      this.nacionalidade,
+      this.age,
+    );
   }
 
   private validator() {

@@ -13,7 +13,7 @@ describe('#UserItem - Integration Tests ', () => {
     );
 
     table = new DynamoTable(TABLE_TEST_NAME);
-    user = new UserDefinition(uuidv4(), 'name', 18);
+    user = new UserDefinition(uuidv4(), 2, 'name', 'Brasileiro', 18);
   });
 
   test('#putItem - should put item', async () => {
@@ -32,6 +32,18 @@ describe('#UserItem - Integration Tests ', () => {
     };
 
     const result = await table.queryItem(userKeys);
+    expect(result).toBeTruthy();
+  });
+  test('#UpdateItem - should update item', async () => {
+    user.age = 98;
+    user.nacionalidade = 'Irlandes';
+    const userItem = UserItem.From(user);
+    const userKeys = {
+      pk: userItem.pk,
+      sk: userItem.sk,
+    };
+
+    const result = await table.updateItem(userItem, userKeys);
     expect(result).toBeTruthy();
   });
   test('#DeleteItem - should delete item', async () => {

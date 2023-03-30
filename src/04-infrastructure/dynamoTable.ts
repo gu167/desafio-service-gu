@@ -6,8 +6,10 @@ import {
   QueryCommandInput,
   DeleteCommand,
   DeleteCommandInput,
+  UpdateCommand,
+  UpdateCommandInput,
 } from '@aws-sdk/lib-dynamodb';
-import { BaseItem } from './items/item';
+import { BaseItem, TypeEnum } from './items/item';
 
 const dynamoClient = new DynamoDBClient({
   region: process.env.AWS_ACCOUNT_REGION || 'us-east-1',
@@ -72,6 +74,28 @@ export class DynamoTable {
       Key: key,
     };
     const response = await this.client.send(new DeleteCommand(params));
+    return response.$metadata.httpStatusCode === 200;
+  }
+
+  //TODO
+
+  async updateItem(item: BaseItem<unknown>, key: { pk: string; sk: string }) {
+    const updatedTimeStamp = new Date().toISOString();
+    const params: UpdateCommandInput = {
+      TableName: this.tableName,
+      Key: key,
+      ReturnValues: 'ALL_NEW',
+      ExpressionAttributeNames: {
+        '#data': 'data',
+        '#updatedAt': 'updatedAt',
+      },
+      ExpressionAttributeValues: {
+        ':data': item.data,
+        ':updatedAt': updatedTimeStamp,
+      },
+      UpdateExpression: 'SET #data = :data, #updatedAt = :updatedAt',
+    };
+    const response = await this.client.send(new UpdateCommand(params));
     return response.$metadata.httpStatusCode === 200;
   }
 }

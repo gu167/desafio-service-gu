@@ -9,7 +9,7 @@ import {
   UpdateCommand,
   UpdateCommandInput,
 } from '@aws-sdk/lib-dynamodb';
-import { BaseItem, TypeEnum } from './items/item';
+import { BaseItem } from './items/item';
 
 const dynamoClient = new DynamoDBClient({
   region: process.env.AWS_ACCOUNT_REGION || 'us-east-1',
@@ -77,8 +77,6 @@ export class DynamoTable {
     return response.$metadata.httpStatusCode === 200;
   }
 
-  //TODO
-
   async updateItem(item: BaseItem<unknown>, key: { pk: string; sk: string }) {
     const updatedTimeStamp = new Date().toISOString();
     const params: UpdateCommandInput = {
@@ -88,7 +86,7 @@ export class DynamoTable {
       ExpressionAttributeNames: {
         '#data': 'data',
         '#updatedAt': 'updatedAt',
-      },
+      }, // Passa os dados de data (tudo tirando pk e sk, e permite a atualização destes, não passar as keys !!)
       ExpressionAttributeValues: {
         ':data': item.data,
         ':updatedAt': updatedTimeStamp,

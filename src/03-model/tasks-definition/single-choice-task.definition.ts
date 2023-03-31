@@ -20,9 +20,9 @@ export class SingleChoiceQuestion {
   @IsNotEmpty({
     each: true,
   })
-  options: OptionType[];
+  options: OptionType;
 
-  constructor(statement: string, options: OptionType[]) {
+  constructor(statement: string, options: OptionType) {
     this.statement = statement;
     this.options = options;
     this.validator();

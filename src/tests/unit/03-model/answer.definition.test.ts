@@ -9,7 +9,6 @@ describe('#AnswerDefinition - Unit Test', () => {
     });
 
     expect(answer).toEqual(answer.clone());
-    console.log(answer); // Visualization
   });
 
   test('should throw an error when given invalid params', () => {
@@ -17,6 +16,5 @@ describe('#AnswerDefinition - Unit Test', () => {
       'AnswerErrors: id should not be empty; id must be a UUID; taskId should not be empty; answerType must be one of the following values: 1, 2, 3; answerContent must be an object; answerContent should not be empty;',
     );
     expect(() => new BaseAnswerDefinition('', '', 5, '')).toThrow(error);
-    console.log(error); //Visuazlization
   });
 });

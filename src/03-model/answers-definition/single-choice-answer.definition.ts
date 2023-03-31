@@ -1,19 +1,12 @@
 import { BaseAnswerDefinition } from './base-answer.definition';
 import { TaskTypesEnum } from '../tasks-definition/base-task.definition';
-import {
-  IsNotEmpty,
-  MaxLength,
-  MinLength,
-  validateSync,
-} from 'class-validator';
+import { IsNotEmpty, validateSync } from 'class-validator';
 
 export class SingleChoiceAnswer {
   @IsNotEmpty()
-  @MinLength(1)
-  @MaxLength(255)
-  answerContent: string;
+  answerContent: any;
 
-  constructor(answerContent: string) {
+  constructor(answerContent: any) {
     this.answerContent = answerContent;
   }
 

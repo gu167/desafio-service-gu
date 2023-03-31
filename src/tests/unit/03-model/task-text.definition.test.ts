@@ -1,4 +1,3 @@
-import {} from 'src/03-model/tasks-definition/text-task.definition';
 import { TaskObjectMother } from '../_model/task.object-mother';
 
 describe('#TaskDefinition - Unit Test', () => {

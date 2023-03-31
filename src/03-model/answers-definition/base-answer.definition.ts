@@ -11,7 +11,7 @@ export class BaseAnswerDefinition<T> {
   @IsUUID()
   @IsNotEmpty()
   id: string;
-  //TODO add when service is ready @IsUUID()
+  @IsUUID()
   @IsNotEmpty()
   taskId: string;
   @IsEnum(TaskTypesEnum)

@@ -9,7 +9,7 @@ import {
   UpdateCommand,
   UpdateCommandInput,
 } from '@aws-sdk/lib-dynamodb';
-import { BaseItem } from './items/item';
+import { BaseItem, TypeEnum } from './items/item';
 
 const dynamoClient = new DynamoDBClient({
   region: process.env.AWS_ACCOUNT_REGION || 'us-east-1',
@@ -49,23 +49,41 @@ export class DynamoTable {
     return response.$metadata.httpStatusCode === 200;
   }
 
-  async queryItem(key: { pk: string; sk: string }) {
+  async queryItemByPk(pk: string) {
     const params: QueryCommandInput = {
       ExpressionAttributeNames: {
-        '#pk': 'pk', //como esses itens serão chamados, para que não haja confito com os nomes nativos do ddb
-        '#sk': 'sk',
+        '#pk': 'pk',
+        //como esses itens serão chamados, para que não haja confito com os nomes nativos do ddb
       },
-      ProjectionExpression: '#pk, #sk',
       TableName: this.tableName,
       ExpressionAttributeValues: {
-        ':pk': key.pk, //Atribui o valor das propriedades pelos nomes definidos previamente
-        ':sk': key.sk,
+        ':pk': pk,
+        //Atribui o valor das propriedades pelos nomes definidos previamente
       },
-      KeyConditionExpression: '#pk = :pk and #sk = :sk', //validação para ter certeza que os valores desejados são os valores que foram atribuidos
+      KeyConditionExpression: '#pk = :pk', //validação para ter certeza que os valores desejados são os valores que foram atribuidos
     };
 
     const response = await this.client.send(new QueryCommand(params));
-    return response.$metadata.httpStatusCode === 200;
+    return response.Items;
+  }
+
+  async queryItems(type: TypeEnum) {
+    const params: QueryCommandInput = {
+      IndexName: 'typeIndex',
+      ExpressionAttributeNames: {
+        '#type': 'type',
+        //como esses itens serão chamados, para que não haja confito com os nomes nativos do ddb
+      },
+      TableName: this.tableName,
+      ExpressionAttributeValues: {
+        ':type': type,
+        //Atribui o valor das propriedades pelos nomes definidos previamente
+      },
+      KeyConditionExpression: '#type = :type', //validação para ter certeza que os valores desejados são os valores que foram atribuidos
+    };
+
+    const response = await this.client.send(new QueryCommand(params));
+    return response.Items;
   }
 
   async deleteItem(key: { pk: string; sk: string }) {

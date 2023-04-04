@@ -26,13 +26,8 @@ describe('#UserItem - Integration Tests ', () => {
   test('#queryItem - should query item', async () => {
     const userItem = UserItem.From(user);
 
-    const userKeys = {
-      pk: userItem.pk,
-      sk: userItem.sk,
-    };
-
-    const result = await table.queryItem(userKeys);
-    expect(result).toBeTruthy();
+    const result = await table.queryItemByPk(userItem.pk);
+    expect(result).toEqual(expect.arrayContaining([userItem]));
   });
   test('#UpdateItem - should update item', async () => {
     user.age = 98;

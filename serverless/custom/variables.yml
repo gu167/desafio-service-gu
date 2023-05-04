@@ -7,4 +7,3 @@ branch:
 
 serviceNamePrefix: ${self:service}
 serviceIdentifier: ${self:custom.serviceNamePrefix}-${self:provider.stage}
-ssmInfraPrefix: desafio-infra-gu

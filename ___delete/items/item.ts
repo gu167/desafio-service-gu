@@ -1,5 +1,5 @@
 export enum TypeEnum {
-  USER = 'USER',
+  WEBSITE = 'WEBSITE',
 }
 
 export abstract class BaseItem<ItemType> {

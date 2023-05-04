@@ -1,4 +1,4 @@
-service: desafio-service-gu
+service: vision-website-printer-service
 
 frameworkVersion: '3'
 
